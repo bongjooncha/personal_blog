@@ -1,0 +1,1915 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="mzkAy71X1qQFWihQN535LoiToXg34MUg9nuor7Og9E8">
+    <meta name="naver-site-verification" content="d7c116bce998e6961b8db93c8592550f1a82119f">
+    <meta name="description" content="온라인 책을 제작 공유하는 플랫폼 서비스">
+    <style>*{border: solid red 1px;}</style>
+    
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="위키독스">
+<meta property="og:title" content="01. pyenv 설치 및 Python 설치">
+<meta property="og:description" content="Python(파이썬) 설치는 Python의 언어를 읽어서 해석 해줄 수 있는 인터프리터와 기본 라이브러리를 설치하게 됩니다.  그리고 이러한 언어 또한 종종 버전 업데이트가 이루…">
+<meta property="og:image" content="https://wikidocs.net/images/book/python_basic_rHQbKqM.png">
+<meta property="og:url" content="https://wikidocs.net/12689">
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="canonical" href="https://wikidocs.net/book/1">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&amp;display=swap" rel="stylesheet">
+
+    <title>01. pyenv 설치 및 Python 설치 - 파이썬 - 기본을 갈고 닦자!</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    -->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+    <link type="text/css" href="/static/book/css/style_stack.css?v=20230803_01" rel="stylesheet" media="screen">
+    <script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202308210101/reactive_library_fy2021.js"></script><script src="https://partner.googleadservices.com/gampad/cookie.js?domain=wikidocs.net&amp;callback=_gfp_s_&amp;client=ca-pub-5577322954484845&amp;cookie=ID%3Dee577a1f6a07e139-22756f95bce100f3%3AT%3D1687225362%3ART%3D1689435636%3AS%3DALNI_MYbagNgpQS6zjjSwzLYC8OmCnZjOw&amp;gpic=UID%3D00000c52647ed4c5%3AT%3D1687225362%3ART%3D1689435636%3AS%3DALNI_MZg3PwIAks9P1RloFpwTb4WNb5XAg"></script><script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202308210101/show_ads_impl_fy2021.js" id="google_shimpl"></script><script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/static/book/js/utils.js"></script>
+    <script type="text/javascript" src="/static/book/js/base.js?v=20230516_01"></script>
+    <script type="text/javascript">
+    function recommend_book(book_id) {
+        var msg = [];
+        msg.push('<div class="alert alert-info">');
+        msg.push('<p><strong>책을 추천합니다.</strong></p>');
+        msg.push('정말로 추천하시겠습니까?</p>');
+        msg.push('</div>');
+        msg.push('<span class="muted">※ 추천취소는 불가능합니다.</span>');
+
+        apprise(msg.join(''), {'verify':true}, function(r) {
+            if(r) {
+                location.href = "/book/recommend/"+book_id;
+            }
+        });
+        return;
+    }
+    </script>
+    
+    
+
+
+<link type="text/css" href="/static/apprise/apprise.min.css" rel="stylesheet">
+<link type="text/css" href="/static/book/css/markdown_stack.css?v=20230801_01" rel="stylesheet">
+<link type="text/css" href="/static/treeview/bootstrap-treeview.min.css" rel="stylesheet">
+<link type="text/css" href="/static/book/css/copycode.css" rel="stylesheet">
+
+<!--  -->
+
+<script type="text/javascript" src="/static/apprise/apprise-1.5.min.js"></script>
+<script type="text/javascript" src="/static/scroll/jquery.nicescroll.js"></script>
+<!-- <script type="text/javascript" src="/static/book/js/page.js?v=20210601_01"></script> -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+
+
+<!-- 수식입력 mathjax -->
+<script>
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {load: ['[tex]/physics', '[tex]/braket']},
+  tex: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    packages: {'[+]': ['physics', 'braket']}
+  }
+};
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- 수식입력 mathjax -->
+
+<script>
+$(document).ready(function () {
+//    $("pre").addClass("prettyprint");
+//    prettyPrint();
+
+    $("#show_toc_btn").click(function () {
+        $(".toc").removeClass("hide");
+        $(".toc").show();
+        $("#show_toc_btn").hide();
+    });
+
+    $("#feedback_btn").click(function () {
+
+        var page_id = $("#page_id").val();
+        var email = $("#email").val();
+        var feedback = $("#feedback").val();
+
+        if (!email) {
+            apprise('답장받을 이메일을 입력하세요.', {}, function () {
+                $("#email").focus();
+            });
+            return;
+        }
+
+        if (!validateEmail(email)) {
+            apprise('이메일을 정확하게 입력 해 주세요.', {}, function () {
+                $("#email").focus();
+            });
+            return;
+        }
+
+        if (!feedback) {
+            apprise('피드백을 입력하세요.', {}, function () {
+                $("#feedback").focus();
+            });
+            return;
+        }
+
+        $.post("/feedback", {
+            "page_id": page_id,
+            "email": email,
+            "feedback": feedback
+        }, function (data) {
+            apprise('피드백을 남겨주셔서 감사합니다.', {}, function () {
+                $('#myModal').modal('hide');
+            });
+        }, "html");
+
+    });
+
+
+
+    $("#report_btn").click(function () {
+
+        var comment_id = $("#comment_id").val();
+        var report = $("#report").val();
+
+        if (!report) {
+            apprise('신고사유를 입력하세요.', {}, function () {
+                $("#report").focus();
+            });
+            return;
+        }
+
+        $.post("/page/comment/report", {
+            "comment_id": comment_id,
+            "report": report
+        }, function (result) {
+            if(result.success) {
+                apprise('신고가 접수되었습니다. 검토까지는 최대 24시간 소요됩니다.', {}, function () {
+                    $('#reportModal').modal('hide');
+                });
+            }else {
+                $('#reportModal').modal('hide');
+                alert(result.message);
+            }
+            
+        }, "json");
+
+    });
+
+    $("body").on('click', "#comment_btn", function () {
+        var content = $("#content").val();
+        if (!content) {
+            apprise('댓글을 입력해 주세요', {verify: false}, function (r) {
+                $("#content").focus();
+            });
+            return false;
+        }
+
+        $.post("/page/comment/save", {
+            "page_id": $("#page_id").val(),
+            "content": content
+        }, function (result) {
+            if (result.success) {
+                get_page_comments(result.page_id);
+            }else {
+                alert(result.message);
+            }
+        }, "json");
+    });
+
+    $('a[href="#top"]').click(function () {
+        $('html,body').animate({ scrollTop: $("body").offset().top},
+            {duration: 'normal', easing: 'swing'});
+        return false;
+    });
+
+    var hash = window.location.hash;
+    if(hash.indexOf("#comment") != -1) {
+        show_comments();
+    }
+
+    // 외부 링크는 새창으로 열도록 수정.
+    $('a').each(function() {
+        var a = new RegExp('/' + window.location.host + '/');
+        try {
+            if(this.href && !a.test(this.href) && this.href.indexOf('wikidocs.net') === -1 && this.href.startsWith('http')) {
+                $(this).click(function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    window.open(this.href, '_blank');
+                });
+            }
+        }catch(e) {
+        }
+    });
+
+});
+
+$(window).load(function () {
+    if (!TOC_HEIGHT) {
+//        init_toc();
+    }
+
+    resizeMenu();
+});
+
+function resizeMenu() {
+    var wh = $(window).height() - 220;
+    var ph = get_height(".page");
+    var h = Math.max(wh, ph);
+    $(".scrollable-menu").css("max-height", h+"px");
+}
+
+function touch_toc() {
+    if ($(".page img").length == 0) {
+        init_toc();
+    }
+}
+
+var TOC_HEIGHT;
+function init_toc() {
+    var selected_toc_li_top = $(".selected_toc_li").offset().top;
+    var page_height = get_height(".page");
+    var toc_height = get_height(".toc-area");
+    TOC_HEIGHT = toc_height;
+
+//    console.log("page_height:"+page_height);
+
+    if (toc_height >= 480) {
+        if (page_height - 145 <= 480) {
+            $(".toc-area").css("height", (page_height - 145) + "px");
+            $(".toc-open").show();
+            $(".toc-area").niceScroll({"cursorcolor": "#888"});
+            $(".toc-area").scrollTop(selected_toc_li_top - 200);
+        } else if (toc_height > 480) {
+            $(".toc-area").css("height", "480px");
+            $(".toc-open").show();
+            $(".toc-area").niceScroll({"cursorcolor": "#888"});
+            $(".toc-area").scrollTop(selected_toc_li_top - 200);
+        }
+    }
+
+    if (page_height > 480 + 300) {
+        $(".toc-ads").show();
+    }
+}
+function open_toc() {
+    $(".toc-area").css("overflow-y", "visible");
+    $(".toc-area").css("height", TOC_HEIGHT + "px");
+    $(".toc-open").hide();
+}
+function get_height(element) {
+    var _height = $(element).css("height");
+    return parseInt(_height.split("px")[0]);
+}
+
+function remove_comment(comment_id) {
+    apprise('정말로 삭제하시겠습니까?', {verify: true}, function (r) {
+        if (r) {
+            $.post("/page/comment/remove", {
+                "comment_id": comment_id
+            }, function (result) {
+                if (result.success) {
+                    get_page_comments(result.page_id);
+                }else {
+                    alert(result.message);
+                }
+                // $(".comments").html(data);
+            }, "json");
+        }
+    });
+}
+
+function reply_comment(comment_name) {
+    $(".user_comments #content").val("@"+comment_name+"님 ");
+    $(".user_comments #content").focus();
+}
+
+function show_comments() {
+    $(".user_comments").toggle();
+}
+
+function show_book_comments() {
+    $(".pages").css("display", "none");
+    $(".comments").toggle();
+}
+
+function show_book_pages() {
+    $(".comments").css("display", "none");
+    $(".pages").toggle();
+
+}
+
+function get_all_page_comments(page_id) {
+    $.ajax({
+        type: "POST",
+        url: "/page/comment/all",
+        data: {'page_id': page_id},
+        dataType: "html",
+        success: function(data) {
+            $("#page_all_comments").html(data);
+        }
+    });
+}  
+
+function get_page_comments(page_id) {
+    $.ajax({
+        type: "POST",
+        url: "/page/comment/get",
+        data: {'page_id': page_id},
+        dataType: "html",
+        success: function(data) {
+            $(".comments").html(data);
+            $("#content").val("");
+        }
+    });
+}
+
+function report_modal(comment_id) {
+    // console.log(comment_id);
+    $("#comment_id").val(comment_id);
+    $('#reportModal').modal('show')
+}
+</script>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2686629-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6N5MJRGLWG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6N5MJRGLWG');
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/input/tex/extensions/physics.js" charset="UTF-8"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/input/tex/extensions/braket.js" charset="UTF-8"></script><style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style><style id="MJX-CHTML-styles">
+mjx-container[jax="CHTML"] {
+  line-height: 0;
+}
+
+mjx-container [space="1"] {
+  margin-left: .111em;
+}
+
+mjx-container [space="2"] {
+  margin-left: .167em;
+}
+
+mjx-container [space="3"] {
+  margin-left: .222em;
+}
+
+mjx-container [space="4"] {
+  margin-left: .278em;
+}
+
+mjx-container [space="5"] {
+  margin-left: .333em;
+}
+
+mjx-container [rspace="1"] {
+  margin-right: .111em;
+}
+
+mjx-container [rspace="2"] {
+  margin-right: .167em;
+}
+
+mjx-container [rspace="3"] {
+  margin-right: .222em;
+}
+
+mjx-container [rspace="4"] {
+  margin-right: .278em;
+}
+
+mjx-container [rspace="5"] {
+  margin-right: .333em;
+}
+
+mjx-container [size="s"] {
+  font-size: 70.7%;
+}
+
+mjx-container [size="ss"] {
+  font-size: 50%;
+}
+
+mjx-container [size="Tn"] {
+  font-size: 60%;
+}
+
+mjx-container [size="sm"] {
+  font-size: 85%;
+}
+
+mjx-container [size="lg"] {
+  font-size: 120%;
+}
+
+mjx-container [size="Lg"] {
+  font-size: 144%;
+}
+
+mjx-container [size="LG"] {
+  font-size: 173%;
+}
+
+mjx-container [size="hg"] {
+  font-size: 207%;
+}
+
+mjx-container [size="HG"] {
+  font-size: 249%;
+}
+
+mjx-container [width="full"] {
+  width: 100%;
+}
+
+mjx-box {
+  display: inline-block;
+}
+
+mjx-block {
+  display: block;
+}
+
+mjx-itable {
+  display: inline-table;
+}
+
+mjx-row {
+  display: table-row;
+}
+
+mjx-row > * {
+  display: table-cell;
+}
+
+mjx-mtext {
+  display: inline-block;
+}
+
+mjx-mstyle {
+  display: inline-block;
+}
+
+mjx-merror {
+  display: inline-block;
+  color: red;
+  background-color: yellow;
+}
+
+mjx-mphantom {
+  visibility: hidden;
+}
+
+_::-webkit-full-page-media, _:future, :root mjx-container {
+  will-change: opacity;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-c::before {
+  display: block;
+  width: 0;
+}
+
+.MJX-TEX {
+  font-family: MJXZERO, MJXTEX;
+}
+
+.TEX-B {
+  font-family: MJXZERO, MJXTEX-B;
+}
+
+.TEX-I {
+  font-family: MJXZERO, MJXTEX-I;
+}
+
+.TEX-MI {
+  font-family: MJXZERO, MJXTEX-MI;
+}
+
+.TEX-BI {
+  font-family: MJXZERO, MJXTEX-BI;
+}
+
+.TEX-S1 {
+  font-family: MJXZERO, MJXTEX-S1;
+}
+
+.TEX-S2 {
+  font-family: MJXZERO, MJXTEX-S2;
+}
+
+.TEX-S3 {
+  font-family: MJXZERO, MJXTEX-S3;
+}
+
+.TEX-S4 {
+  font-family: MJXZERO, MJXTEX-S4;
+}
+
+.TEX-A {
+  font-family: MJXZERO, MJXTEX-A;
+}
+
+.TEX-C {
+  font-family: MJXZERO, MJXTEX-C;
+}
+
+.TEX-CB {
+  font-family: MJXZERO, MJXTEX-CB;
+}
+
+.TEX-FR {
+  font-family: MJXZERO, MJXTEX-FR;
+}
+
+.TEX-FRB {
+  font-family: MJXZERO, MJXTEX-FRB;
+}
+
+.TEX-SS {
+  font-family: MJXZERO, MJXTEX-SS;
+}
+
+.TEX-SSB {
+  font-family: MJXZERO, MJXTEX-SSB;
+}
+
+.TEX-SSI {
+  font-family: MJXZERO, MJXTEX-SSI;
+}
+
+.TEX-SC {
+  font-family: MJXZERO, MJXTEX-SC;
+}
+
+.TEX-T {
+  font-family: MJXZERO, MJXTEX-T;
+}
+
+.TEX-V {
+  font-family: MJXZERO, MJXTEX-V;
+}
+
+.TEX-VB {
+  font-family: MJXZERO, MJXTEX-VB;
+}
+
+mjx-stretchy-v mjx-c, mjx-stretchy-h mjx-c {
+  font-family: MJXZERO, MJXTEX-S1, MJXTEX-S4, MJXTEX, MJXTEX-A ! important;
+}
+
+@font-face /* 0 */ {
+  font-family: MJXZERO;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Zero.woff") format("woff");
+}
+
+@font-face /* 1 */ {
+  font-family: MJXTEX;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff") format("woff");
+}
+
+@font-face /* 2 */ {
+  font-family: MJXTEX-B;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff") format("woff");
+}
+
+@font-face /* 3 */ {
+  font-family: MJXTEX-I;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff") format("woff");
+}
+
+@font-face /* 4 */ {
+  font-family: MJXTEX-MI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff") format("woff");
+}
+
+@font-face /* 5 */ {
+  font-family: MJXTEX-BI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff") format("woff");
+}
+
+@font-face /* 6 */ {
+  font-family: MJXTEX-S1;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff") format("woff");
+}
+
+@font-face /* 7 */ {
+  font-family: MJXTEX-S2;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff") format("woff");
+}
+
+@font-face /* 8 */ {
+  font-family: MJXTEX-S3;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff") format("woff");
+}
+
+@font-face /* 9 */ {
+  font-family: MJXTEX-S4;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff") format("woff");
+}
+
+@font-face /* 10 */ {
+  font-family: MJXTEX-A;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff") format("woff");
+}
+
+@font-face /* 11 */ {
+  font-family: MJXTEX-C;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff") format("woff");
+}
+
+@font-face /* 12 */ {
+  font-family: MJXTEX-CB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff") format("woff");
+}
+
+@font-face /* 13 */ {
+  font-family: MJXTEX-FR;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff") format("woff");
+}
+
+@font-face /* 14 */ {
+  font-family: MJXTEX-FRB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff") format("woff");
+}
+
+@font-face /* 15 */ {
+  font-family: MJXTEX-SS;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff") format("woff");
+}
+
+@font-face /* 16 */ {
+  font-family: MJXTEX-SSB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff") format("woff");
+}
+
+@font-face /* 17 */ {
+  font-family: MJXTEX-SSI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff") format("woff");
+}
+
+@font-face /* 18 */ {
+  font-family: MJXTEX-SC;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff") format("woff");
+}
+
+@font-face /* 19 */ {
+  font-family: MJXTEX-T;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff") format("woff");
+}
+
+@font-face /* 20 */ {
+  font-family: MJXTEX-V;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff") format("woff");
+}
+
+@font-face /* 21 */ {
+  font-family: MJXTEX-VB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff") format("woff");
+}
+</style><meta http-equiv="origin-trial" content="A7CQXglZzTrThjGTBEn1rWTxHOEtkWivwzgea+NjyardrwlieSjVuyG44PkYgIPGs8Q9svD8sF3Yedn0BBBjXAkAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A3vKT9yxRPjmXN3DpIiz58f5JykcWHjUo/W7hvmtjgh9jPpQgem9VbADiNovG8NkO6mRmk70Kex8/KUqAYWVWAEAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A4A26Ymj79UVY7C7JGUS4BG1s7MdcDokAQf/RP0paks+RoTYbXHxceT/5L4iKcsleFCngi75YfNRGW2+SpVv1ggAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="As0hBNJ8h++fNYlkq8cTye2qDLyom8NddByiVytXGGD0YVE+2CEuTCpqXMDxdhOMILKoaiaYifwEvCRlJ/9GcQ8AAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="AgRYsXo24ypxC89CJanC+JgEmraCCBebKl8ZmG7Tj5oJNx0cmH0NtNRZs3NB5ubhpbX/bIt7l2zJOSyO64NGmwMAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7CQXglZzTrThjGTBEn1rWTxHOEtkWivwzgea+NjyardrwlieSjVuyG44PkYgIPGs8Q9svD8sF3Yedn0BBBjXAkAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A3vKT9yxRPjmXN3DpIiz58f5JykcWHjUo/W7hvmtjgh9jPpQgem9VbADiNovG8NkO6mRmk70Kex8/KUqAYWVWAEAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A4A26Ymj79UVY7C7JGUS4BG1s7MdcDokAQf/RP0paks+RoTYbXHxceT/5L4iKcsleFCngi75YfNRGW2+SpVv1ggAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="As0hBNJ8h++fNYlkq8cTye2qDLyom8NddByiVytXGGD0YVE+2CEuTCpqXMDxdhOMILKoaiaYifwEvCRlJ/9GcQ8AAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="AgRYsXo24ypxC89CJanC+JgEmraCCBebKl8ZmG7Tj5oJNx0cmH0NtNRZs3NB5ubhpbX/bIt7l2zJOSyO64NGmwMAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ=="></head>
+<body>
+
+
+<div class="container" style="padding-bottom:50px;">
+
+<div class="content row tex2jax_ignore" style="margin-top:0px;">
+    <div class="col-sm-3">
+        
+<div class="row">
+    <div class="col-sm-3 sidebar" style="padding: 0px; margin: 0px; overflow: hidden auto;">
+        
+
+        <div class="toc toc-checker" style="display: block;">
+
+            <!--
+            <div style="padding:15px 10px 15px 15px;background:#f9f9f9;border-bottom:solid 1px #ccc;">
+                <a class="pull-right menu_link menu-toggle" style="cursor:pointer;margin-right:5px;"><span class="glyphicon glyphicon-menu-hamburger" title="메뉴"></span></a>
+                <span class="">
+                    <a href="/" class="menu_link" style="font-family:consolas;">WikiDocs</a>
+                </span>
+            </div>
+            -->
+
+            <div class="row">
+
+                <div class="col-xs-12" style="margin:;padding:0;">
+
+                    <div class="row" style="margin:0;padding:0;border-bottom:solid 1px #ccc;">
+                        <div class="col-xs-10">
+                            <input type="text" id="kw" name="kw" class="input-search" placeholder="검색어를 입력하세요." value="">
+                        </div>
+                        <div class="col-xs-2 clearfix">
+                            
+                            <div class="menu_link menu-toggle pull-right" style="cursor:pointer;padding-top:14px;padding-right:10px;"><span class="glyphicon glyphicon-menu-hamburger" title="메뉴"></span></div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-toc" style="margin:0;">
+
+                <a class="list-group-item " href="/book/1553" style="margin:0;">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="파이썬 - 기본을 갈고 닦자!">
+                        
+                            <i class="glyphicon glyphicon-book"></i>
+                        
+                        <strong>파이썬 - 기본을 갈고 닦자!</strong>
+                    </span>
+                </a>
+
+                
+                <a href="javascript:page(12689)" class="list-group-item active">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="01. pyenv 설치 및 Python 설치">
+                        <span style="padding-left:0px">
+                        
+                        01. pyenv 설치 및 Python 설치
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16022)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="02. REPL 사용">
+                        <span style="padding-left:0px">
+                        
+                        02. REPL 사용
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16029)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="03. 기본문법(들여쓰기, 주석, 세미콜론)">
+                        <span style="padding-left:0px">
+                        
+                        03. 기본문법(들여쓰기, 주석, 세미콜론)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16030)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="04. import 기본라이브러리">
+                        <span style="padding-left:0px">
+                        
+                        04. import 기본라이브러리
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16031)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="05. Scalar 타입(int, float, None, bool)">
+                        <span style="padding-left:0px">
+                        
+                        05. Scalar 타입(int, float, None, bool)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16032)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="06. 관계연산자 + 조건절">
+                        <span style="padding-left:0px">
+                        
+                        06. 관계연산자 + 조건절
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16033)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="07. while 반복문">
+                        <span style="padding-left:0px">
+                        
+                        07. while 반복문
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16034)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="08. String">
+                        <span style="padding-left:0px">
+                        
+                        08. String
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16035)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="09. Bytes">
+                        <span style="padding-left:0px">
+                        
+                        09. Bytes
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16036)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="10. List(리스트)(1) - 리스트란, 리스트 사용">
+                        <span style="padding-left:0px">
+                        
+                        10. List(리스트)(1) - 리스트란, 리스트 사용
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16037)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="11. List(리스트)(2) - 리스트 인덱싱, 리스트 슬라이싱">
+                        <span style="padding-left:0px">
+                        
+                        11. List(리스트)(2) - 리스트 인덱싱, 리스트 슬라이싱
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16038)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="12. 얕은 복사(shallow copy)와 깊은 복사(deep copy)">
+                        <span style="padding-left:0px">
+                        
+                        12. 얕은 복사(shallow copy)와 깊은 복사(deep copy)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16039)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="13. List(리스트)(3) - 리스트 반복, 리스트 관련 메소드">
+                        <span style="padding-left:0px">
+                        
+                        13. List(리스트)(3) - 리스트 반복, 리스트 관련 메소드
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16040)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="14. List(리스트)(4) - 리스트 원소 추가, 삭제">
+                        <span style="padding-left:0px">
+                        
+                        14. List(리스트)(4) - 리스트 원소 추가, 삭제
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16041)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="15. List(리스트)(5) - 리스트 정렬">
+                        <span style="padding-left:0px">
+                        
+                        15. List(리스트)(5) - 리스트 정렬
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16042)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="16. tuple(튜플)">
+                        <span style="padding-left:0px">
+                        
+                        16. tuple(튜플)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16043)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="17. dictionary(딕셔너리)">
+                        <span style="padding-left:0px">
+                        
+                        17. dictionary(딕셔너리)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16044)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="18. set(집합)">
+                        <span style="padding-left:0px">
+                        
+                        18. set(집합)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16045)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="19. for in 반복문, Range, enumerate">
+                        <span style="padding-left:0px">
+                        
+                        19. for in 반복문, Range, enumerate
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16046)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="20. module(모듈)">
+                        <span style="padding-left:0px">
+                        
+                        20. module(모듈)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16047)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="21. function(함수)">
+                        <span style="padding-left:0px">
+                        
+                        21. function(함수)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16048)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="22. module import와 실행">
+                        <span style="padding-left:0px">
+                        
+                        22. module import와 실행
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16049)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="23. Command line Arguments">
+                        <span style="padding-left:0px">
+                        
+                        23. Command line Arguments
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16050)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="24. Docstring - 문서화">
+                        <span style="padding-left:0px">
+                        
+                        24. Docstring - 문서화
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16051)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="25. shebang ">
+                        <span style="padding-left:0px">
+                        
+                        25. shebang 
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16052)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="26. 함수의 인자(Argument) 전달">
+                        <span style="padding-left:0px">
+                        
+                        26. 함수의 인자(Argument) 전달
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16053)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="27. 함수 인자(Arguments)">
+                        <span style="padding-left:0px">
+                        
+                        27. 함수 인자(Arguments)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16054)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="28. Python(파이썬)의 타입 시스템">
+                        <span style="padding-left:0px">
+                        
+                        28. Python(파이썬)의 타입 시스템
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16055)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="29. 변수 scope">
+                        <span style="padding-left:0px">
+                        
+                        29. 변수 scope
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16056)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="30. 모든 것은 객체다.">
+                        <span style="padding-left:0px">
+                        
+                        30. 모든 것은 객체다.
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16060)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="31. Exception(예외) 흐름과 Exception Handling">
+                        <span style="padding-left:0px">
+                        
+                        31. Exception(예외) 흐름과 Exception Handling
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16061)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="32. Programmer Error - 예외처리 되지 않는 에러">
+                        <span style="padding-left:0px">
+                        
+                        32. Programmer Error - 예외처리 되지 않는 에러
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16062)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="33. EAFP - 허락보다 용서구하는 것이 쉽다.">
+                        <span style="padding-left:0px">
+                        
+                        33. EAFP - 허락보다 용서구하는 것이 쉽다.
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16063)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="34. OS별 처리">
+                        <span style="padding-left:0px">
+                        
+                        34. OS별 처리
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16064)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="35. List Comprehesions(리스트 표현식)">
+                        <span style="padding-left:0px">
+                        
+                        35. List Comprehesions(리스트 표현식)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16066)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="36. Set Comprehesions(Set 표현식)">
+                        <span style="padding-left:0px">
+                        
+                        36. Set Comprehesions(Set 표현식)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16067)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="37. Dictionary Comprehesions(Dictionary 표현식)">
+                        <span style="padding-left:0px">
+                        
+                        37. Dictionary Comprehesions(Dictionary 표현식)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16068)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="38. Iterable 과 Iterator">
+                        <span style="padding-left:0px">
+                        
+                        38. Iterable 과 Iterator
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16069)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="39. Generator(제네레이터)">
+                        <span style="padding-left:0px">
+                        
+                        39. Generator(제네레이터)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16070)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="40. itertools 모듈과 iterable에 유용한 내장함수">
+                        <span style="padding-left:0px">
+                        
+                        40. itertools 모듈과 iterable에 유용한 내장함수
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16071)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="41. class 정리 - 클래스 기본적인 사용">
+                        <span style="padding-left:0px">
+                        
+                        41. class 정리 - 클래스 기본적인 사용
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16072)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="42. class 정리 - 클래스 속성과 인스턴스 속성">
+                        <span style="padding-left:0px">
+                        
+                        42. class 정리 - 클래스 속성과 인스턴스 속성
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16073)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="43. class 정리 - 상속(inheritance)">
+                        <span style="padding-left:0px">
+                        
+                        43. class 정리 - 상속(inheritance)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16074)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="44. class 정리 - 정적메소드 @classmethod와 @staticmethod의 정리">
+                        <span style="padding-left:0px">
+                        
+                        44. class 정리 - 정적메소드 @classmethod와 @staticmethod의 정리
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16075)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="45. class 정리 - 추상클래스(abstract class)">
+                        <span style="padding-left:0px">
+                        
+                        45. class 정리 - 추상클래스(abstract class)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16076)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="46. class 정리 - 덕 타이핑(Duck Typing)">
+                        <span style="padding-left:0px">
+                        
+                        46. class 정리 - 덕 타이핑(Duck Typing)
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16077)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="47. 파일 - 텍스트 파일 다루기">
+                        <span style="padding-left:0px">
+                        
+                        47. 파일 - 텍스트 파일 다루기
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16078)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="48. 파일 - finally &amp; with 구문">
+                        <span style="padding-left:0px">
+                        
+                        48. 파일 - finally &amp; with 구문
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16079)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="49. contextlib모듈의 closing활용">
+                        <span style="padding-left:0px">
+                        
+                        49. contextlib모듈의 closing활용
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16107)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="50. unittest - 단위테스트">
+                        <span style="padding-left:0px">
+                        
+                        50. unittest - 단위테스트
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16374)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="51. pip - 패키지 매니저">
+                        <span style="padding-left:0px">
+                        
+                        51. pip - 패키지 매니저
+                        </span>
+                    </span>
+                </a>
+                
+                <a href="javascript:page(16402)" class="list-group-item ">
+                    <span style="white-space:nowrap;overflow:hidden;display:block;" title="52. 가상환경 - venv, virtualenv, conda">
+                        <span style="padding-left:0px">
+                        
+                        52. 가상환경 - venv, virtualenv, conda
+                        </span>
+                    </span>
+                </a>
+                
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="small" style="border-top:solid 1px #ccc;padding:15px 15px 30px 15px;font-family:consolas;">
+                <a href="/" style="padding-left:15px;color:#333;">Published with WikiDocs</a>
+            </div>
+        </div>
+        
+
+        <input type="hidden" name="request_mobile" id="request_mobile" value="0">
+
+        <form id="search_form" action="/book/search/1553" method="post">
+            <input type="hidden" name="keyword" id="keyword">
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+function myTrim(x) {
+    return x.replace(/^\s+|\s+$/gm,'');
+}
+
+function search_json() {
+    var kw = myTrim($("#kw").val());
+    if(!kw) {
+        return;
+    }
+
+    $.post("/book/search.json", {
+        "keyword": kw
+
+    }, function (json) {
+        if (json.success) {
+            location.href = "/book/search/result/1553";
+        }
+
+    }, "json");
+}
+
+$(document).ready(function () {
+    $(".book-search").on("click", function() {
+        $("#search_form").submit();
+    });
+
+    $("#mobile_search_btn").on("click", function() {
+        search_json();
+    });
+
+    $('#kw').keyup(function(e) {
+        if (e.keyCode == 13) {
+            search_json();
+        }
+    });
+
+    $(".home").on("click", function() {
+        location.href = "/";
+    });
+
+    if (typeof(Storage) !== "undefined") {
+        if(localStorage.sidebar == "hidden") {
+            menuToggle();
+        }else {
+            $(".sidebar").show();
+            $(".toc-header").show();
+        }
+    }else {
+        $(".sidebar").show();
+        $(".toc-header").show();
+    }
+
+    $(".toc").css("display", "block");
+    if (typeof(Storage) !== "undefined") {
+        $(".sidebar").scrollTop(localStorage.sp);
+    }
+
+    $(".sidebar").css("overflow-y", "auto");
+
+    $(".toc_item").on("click", function() {
+        var page_id = $(this).attr("page_id");
+        // $(".selected_toc").removeClass("selected_toc");
+        // $(this).addClass("selected_toc");
+        page(page_id);
+
+    });
+
+    $(".menu-toggle").on("click", function() {
+        menuToggle();
+
+        if (typeof(Storage) !== "undefined") {
+            if(localStorage.sidebar == "hidden") {
+                localStorage.sidebar = "show";
+            }else {
+                localStorage.sidebar = "hidden";
+            }
+        }
+    });
+
+    
+
+    $("#load_content").show();
+});
+
+
+function menuToggle(no_sidebar) {
+    if(!no_sidebar) {
+        $(".sidebar").toggle();
+        $(".toc-header").toggle();
+    }
+    $("#load_content").toggleClass("col-sm-offset-3");
+    $("#load_content").toggleClass("col-sm-9");
+    $("#load_content").toggleClass("col-sm-12");
+    $("#load_content").toggleClass("sidebar-padding");
+    $(".prev_next_indicator").toggle();
+    $(".menu-group").toggle();
+}
+
+function page(no) {
+    var scrollpos = $(".sidebar").scrollTop();
+    if (typeof(Storage) !== "undefined") {
+        localStorage.sp = scrollpos;
+    }
+
+    location.href = "/"+no;
+    return false;
+
+    $(".selected_toc").removeClass("selected_toc");
+    $(".toc_item").each(function() {
+        var page_id = $(this).attr("page_id");
+        if(page_id == no) {
+            $(this).addClass("selected_toc");
+        }
+    });
+
+    var url = "/load/"+no;
+    $("#load_content").load(url, function(responseTxt, statusTxt, xhr){
+        if(statusTxt == "success") {
+            // alert("External content loaded successfully!");
+            $("#load_content").scrollTop(0);
+            window.history.pushState("object or string", "01. pyenv 설치 및 Python 설치", "/"+no);
+        }
+        if(statusTxt == "error") {
+            alert("Error: " + xhr.status + ": " + xhr.statusText);
+        }
+    });
+
+}
+</script>
+
+
+
+    </div>
+
+    
+    <div class="page col-sm-offset-3 col-sm-9" id="load_content" style="margin-top: 0px;">
+        <!-- <div style="margin: 50px 0; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
+    <div style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">[중요] 서버 점검 공지</div>
+    <div style="font-size: 16px; line-height: 1.6;">
+        <p>안녕하세요, 고객 여러분,</p>
+        <p>저희는 시스템의 안정성을 향상시키기 위해 예정된 서버 점검을 진행하게 되었습니다. 이로 인해 일시적으로 서비스 이용에 불편을 드릴 수 있음을 알려드립니다.</p>
+        <p><strong>- 점검 일시: 2023년 6월 17일 (토요일), 23시부터 24시까지 (1시간 동안)</strong></p>
+        <p>점검 동안에는 모든 서비스가 일시적으로 중단됩니다. 점검이 완료된 후에는 정상적으로 서비스를 이용하실 수 있습니다.</p>
+        <p>점검 시간 동안에는 서비스 이용이 불가능하오니, 이 점 참고하시어 불편함이 없으시길 바랍니다.</p>
+        <p>저희는 고객 여러분께 더 나은 서비스를 제공하기 위해 노력하고 있습니다. 이해와 협조에 감사드립니다.</p>
+        <p>감사합니다.</p>
+    </div>
+</div>
+ -->
+        
+
+
+
+
+
+
+
+
+<div class="btn-group pull-right menu-group" role="group">
+    <small>
+        <a class="menu_link menu-toggle"><span class="glyphicon glyphicon-menu-hamburger" title="메뉴"></span></a>
+    </small>
+</div>
+<div class="menu-wikidocs">
+</div>
+
+
+
+<div class="clearfix page-depth">
+    <ol class="breadcrumb pull-left">
+        <li><small><a href="/book/1553"><i class="glyphicon glyphicon-book"></i> <strong>파이썬 - 기본을 갈고 닦자!</strong></a></small></li>
+        
+        <li><small><a href="/12689">01. pyenv 설치 및 Python 설치</a></small></li>
+        
+    </ol>
+    
+    <ol class="breadcrumb pull-right">
+        <!-- <li>
+    <a href="https://wikidocs.net/213102" class="btn btn-xs btn-danger" style="color:#fff"><i class="glyphicon glyphicon-gift"></i> 도서 증정 이벤트 !!</a>
+</li> -->
+        <li>
+            <a href="/"><small class="logo"><i class="glyphicon glyphicon-home"></i> 위키독스</small></a>
+        </li>
+    </ol>
+    
+</div>
+
+
+<h1 class="page-subject">
+    01. pyenv 설치 및 Python 설치
+    
+        
+    
+</h1>
+
+<div class="page-content tex2jax_process">
+    <p>Python(파이썬) 설치는 Python의 언어를 읽어서 해석 해줄 수 있는 인터프리터와 기본 라이브러리를 설치하게 됩니다. 
+그리고 이러한 언어 또한 종종 버전 업데이트가 이루어지며, 이러한 버전 업데이트때마다 새롭게 설치를 하고, 구버전으로 개발된 프로그램에 맞추어 다시 인터프리터를 다시 설치하는 것은 무척 비효율적입니다. </p>
+<p>그래서 이러한 인터프리터 언어들은 여러 버전을 설치하고 손쉽게 시스템의 인터프리터 환경을 변경시켜주는 <strong>version manager</strong>가 있습니다. 
+ruby의 <strong><a href="https://rvm.io/">rvm</a></strong>, Node.js의 <strong><a href="https://github.com/creationix/nvm">nvm</a></strong> 이 대표적인 예입니다. <br></p>
+<p>Python에도 이러한 version manager가 있습니다. <a href="https://github.com/pyenv/pyenv">pyenv</a>입니다. <strong><a href="https://github.com/pyenv/pyenv">pyenv</a></strong>를 먼저 설치하겠습니다.</p>
+<p><strong>❈ Windows는 pyenv 설치 지원을 하지 않습니다.</strong></p>
+<h2 id="1-pyenv">1. pyenv 설치</h2>
+<h3 id="1-mac">1) Mac 설치</h3>
+<ul>
+<li>brew로 설치</li>
+</ul>
+<pre><code class="language-bash hljs md-csc-wrap"><button class="md-csc-button btn btn-xs btn-default"><span class="copymsg">Copy</span></button>$ brew update
+$ brew install pyenv
+</code></pre>
+<h3 id="2-linux">2) Linux 설치</h3>
+<ul>
+<li>git으로 아래와 같이 clone</li>
+</ul>
+<pre><code class="language-bash hljs md-csc-wrap"><button class="md-csc-button btn btn-xs btn-default"><span class="copymsg">Copy</span></button>$ git <span class="hljs-built_in">clone</span> https://github.com/pyenv/pyenv.git ~/.pyenv
+</code></pre>
+<ul>
+<li>Linux환경에 따라서는 <code>~/.bash_profile</code> 대신에 <code>~/.bashrc</code> 사용해야하는 경우도 있으며, zsh 쉘의 경우 <code>~/.zshenv</code> 또는 <code>~/.zshrc</code> 로 경로를 변경해야합니다.</li>
+</ul>
+<pre><code class="language-bash hljs md-csc-wrap"><button class="md-csc-button btn btn-xs btn-default"><span class="copymsg">Copy</span></button>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">'export PYENV_ROOT="$HOME/.pyenv"'</span> &gt;&gt; ~/.bash_profile
+$ <span class="hljs-built_in">echo</span> <span class="hljs-string">'export PATH="$PYENV_ROOT/bin:$PATH"'</span> &gt;&gt; ~/.bash_profile
+$ <span class="hljs-built_in">echo</span> -e <span class="hljs-string">'if command -v pyenv 1&gt;/dev/null 2&gt;&amp;1; then\n  eval "$(pyenv init -)"\nfi'</span> &gt;&gt; ~/.bash_profile
+</code></pre>
+<ul>
+<li>쉘 재가동</li>
+</ul>
+<pre><code class="language-bash hljs md-csc-wrap"><button class="md-csc-button btn btn-xs btn-default"><span class="copymsg">Copy</span></button>$ <span class="hljs-built_in">exec</span> <span class="hljs-string">"<span class="hljs-variable">$SHELL</span>"</span>
+</code></pre>
+<ul>
+<li><strong>pyenv 설치 후 반드시 아래 라이브러리를 설치해주세요. 그렇지 않으면 <code>pyenv install</code> 시 컴파일 문제가 생길 수 있습니다.</strong></li>
+<li><a href="https://github.com/pyenv/pyenv/wiki/Common-build-problems">https://github.com/pyenv/pyenv/wiki/Common-build-problems</a></li>
+</ul>
+<pre><code class="language-bash hljs md-csc-wrap"><button class="md-csc-button btn btn-xs btn-default"><span class="copymsg">Copy</span></button>$ yum install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel xz xz-devel
+</code></pre>
+<h2 id="2-pyenv-python">2. pyenv를 이용한 Python 설치</h2>
+<ul>
+<li>아래의 명령어를 입력하면 pyenv로 설치할 수 있는 Python 인터프리터 리스트들이 나옵니다.</li>
+</ul>
+<pre><code class="language-bash hljs md-csc-wrap"><button class="md-csc-button btn btn-xs btn-default"><span class="copymsg">Copy</span></button>$ pyenv install --list
+</code></pre>
+<ul>
+<li>그 중에 <code>anaconda3-5.0.1</code> 을 설치하겠습니다.(여러 유용한 라이브러리가 많이 포함되어 있습니다.)</li>
+</ul>
+<pre><code class="language-bash hljs md-csc-wrap"><button class="md-csc-button btn btn-xs btn-default"><span class="copymsg">Copy</span></button>$ pyenv install anaconda3-5.0.1
+</code></pre>
+<pre><code class="hljs language-undefined md-csc-wrap"><button class="md-csc-button btn btn-xs btn-default"><span class="copymsg">Copy</span></button>❈ 저의 경우는 설치 과정에서 zlib 관련 에러가 발생하였습니다. 만약 맥 환경에서 zlib 에러가 날 경우 아래의 명령어를 실행하세요.
+</code></pre>
+<pre><code class="language-bash hljs md-csc-wrap"><button class="md-csc-button btn btn-xs btn-default"><span class="copymsg">Copy</span></button>xcode-select --install
+</code></pre>
+<ul>
+<li>설치 완료 후 아래 명령어를 실행하면, <strong>system</strong>, <strong>anaconda3-5.0.1</strong> 만 보일 것입니다.</li>
+</ul>
+<pre><code class="language-bash hljs md-csc-wrap"><button class="md-csc-button btn btn-xs btn-default"><span class="copymsg">Copy</span></button>$ pyenv versions
+</code></pre>
+<ul>
+<li>먼저 현재 시스템의 Python 버전을 보겠습니다. 리눅스와 맥은 기본적으로 python 2 버전대의 Python이 기본 설치 되어 있을 것입니다. 이것이 system 입니다.</li>
+</ul>
+<pre><code class="language-bash hljs md-csc-wrap"><button class="md-csc-button btn btn-xs btn-default"><span class="copymsg">Copy</span></button>$ python -V
+</code></pre>
+<ul>
+<li>이제 시스템의 Python 인터프리터를 anaconda3-5.0.1으로 변경하겠습니다.</li>
+</ul>
+<pre><code class="language-bash hljs md-csc-wrap"><button class="md-csc-button btn btn-xs btn-default"><span class="copymsg">Copy</span></button>$ pyenv global anaconda3-5.0.1
+</code></pre>
+<ul>
+<li>다시 <code>python -V</code> 명령어로 Python 버전을 확인하면 <code>Python 3.6.3 :: Anaconda, Inc.</code>을 확인할 수 있습니다.</li>
+<li>이러한 방식으로 다양한 버전의 Python 인터프리터를 설치하여 변경하면서 사용할 수 있습니다.</li>
+</ul>
+<h2 id="3-windows-python">3. Windows에서 Python 설치</h2>
+<ul>
+<li><a href="https://www.anaconda.com/download/#windows">https://www.anaconda.com/download/#windows</a> 을 방문하여 자신의 환경에 맞는 인스톨러를 다운받아 설치합니다.</li>
+<li>설치 과정 옵션 중에 PATH 환경에 추가하겠냐는 질문에 체크 후 설치 하시면 커맨드 창에서 Python 을 사용할 수 있습니다.</li>
+</ul>
+<p><br><br><br></p>
+<blockquote>
+<p><a href="https://suwoni-codelab.com/python%20%EA%B8%B0%EB%B3%B8/2018/03/01/Python-Basic-install/">https://suwoni-codelab.com/python%20%EA%B8%B0%EB%B3%B8/2018/03/01/Python-Basic-install/</a> </p>
+</blockquote>
+</div>
+
+<div class="muted text-right" style="font-size: 0.9em;margin:10px 0;">
+    
+    마지막 편집일시 : 2018년 3월 21일 10:21 오후
+    
+</div>
+
+<!-- google adsense -->
+<!-- PC -->
+
+    
+        <div style="margin:30px 0;">
+        <div class="clearfix">
+    <div class="pull-left">
+        <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- wikdocs_2 -->
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-5577322954484845" data-ad-slot="9438474501" data-adsbygoogle-status="done" data-ad-status="filled"><div id="aswift_0_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 280px; width: 336px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" browsingtopics="true" style="left:0;position:absolute;top:0;border:0;width:336px;height:280px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="336" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-5577322954484845&amp;output=html&amp;h=280&amp;slotname=9438474501&amp;adk=2021171062&amp;adf=3724050876&amp;pi=t.ma~as.9438474501&amp;w=336&amp;lmt=1692873714&amp;format=336x280&amp;url=https%3A%2F%2Fwikidocs.net%2F12689&amp;wgl=1&amp;uach=WyJXaW5kb3dzIiwiMTAuMC4wIiwieDg2IiwiIiwiMTE2LjAuNTg0NS45NyIsW10sMCxudWxsLCI2NCIsW1siQ2hyb21pdW0iLCIxMTYuMC41ODQ1Ljk3Il0sWyJOb3QpQTtCcmFuZCIsIjI0LjAuMC4wIl0sWyJHb29nbGUgQ2hyb21lIiwiMTE2LjAuNTg0NS45NyJdXSwwXQ..&amp;dt=1692873714558&amp;bpp=2&amp;bdt=536&amp;idt=253&amp;shv=r20230822&amp;mjsv=m202308210101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie=ID%3Dee577a1f6a07e139-22756f95bce100f3%3AT%3D1687225362%3ART%3D1689435636%3AS%3DALNI_MYbagNgpQS6zjjSwzLYC8OmCnZjOw&amp;gpic=UID%3D00000c52647ed4c5%3AT%3D1687225362%3ART%3D1689435636%3AS%3DALNI_MZg3PwIAks9P1RloFpwTb4WNb5XAg&amp;correlator=5089215693626&amp;frm=20&amp;pv=2&amp;ga_vid=1799744031.1687225362&amp;ga_sid=1692873714&amp;ga_hid=529673606&amp;ga_fc=1&amp;ga_cid=193762793.1687225362&amp;u_tz=540&amp;u_his=2&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1040&amp;u_aw=1920&amp;u_cd=24&amp;u_sd=1&amp;dmc=8&amp;adx=674&amp;ady=2626&amp;biw=1903&amp;bih=931&amp;scr_x=0&amp;scr_y=0&amp;eid=44759927%2C44759837%2C44759876%2C44796632%2C44800967%2C31067146&amp;oid=2&amp;pvsid=1009514865449016&amp;tmod=1938028173&amp;uas=0&amp;nvt=1&amp;fc=896&amp;brdim=0%2C0%2C0%2C0%2C1920%2C0%2C1920%2C1040%2C1920%2C931&amp;vis=1&amp;rsz=%7C%7CleEbr%7C&amp;abl=CS&amp;pfx=0&amp;fu=0&amp;bc=31&amp;ifi=1&amp;uci=a!1&amp;btvi=1&amp;fsb=1&amp;xpc=2N5j9Bk4df&amp;p=https%3A//wikidocs.net&amp;dtd=262" data-google-container-id="a!1" data-google-query-id="CNyL6IOO9YADFcoCXAodi9oHig" data-load-complete="true"></iframe></div></ins>
+    </div>
+    <div class="pull-left" style="margin-left:30px">
+        <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- wikdocs_1 -->
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-5577322954484845" data-ad-slot="7634438241" data-adsbygoogle-status="done" data-ad-status="filled"><div id="aswift_1_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 280px; width: 336px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_1" name="aswift_1" browsingtopics="true" style="left:0;position:absolute;top:0;border:0;width:336px;height:280px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="336" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-5577322954484845&amp;output=html&amp;h=280&amp;slotname=7634438241&amp;adk=2152229448&amp;adf=3407021921&amp;pi=t.ma~as.7634438241&amp;w=336&amp;lmt=1692873714&amp;format=336x280&amp;url=https%3A%2F%2Fwikidocs.net%2F12689&amp;wgl=1&amp;uach=WyJXaW5kb3dzIiwiMTAuMC4wIiwieDg2IiwiIiwiMTE2LjAuNTg0NS45NyIsW10sMCxudWxsLCI2NCIsW1siQ2hyb21pdW0iLCIxMTYuMC41ODQ1Ljk3Il0sWyJOb3QpQTtCcmFuZCIsIjI0LjAuMC4wIl0sWyJHb29nbGUgQ2hyb21lIiwiMTE2LjAuNTg0NS45NyJdXSwwXQ..&amp;dt=1692873714560&amp;bpp=1&amp;bdt=538&amp;idt=263&amp;shv=r20230822&amp;mjsv=m202308210101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie=ID%3Dee577a1f6a07e139-22756f95bce100f3%3AT%3D1687225362%3ART%3D1689435636%3AS%3DALNI_MYbagNgpQS6zjjSwzLYC8OmCnZjOw&amp;gpic=UID%3D00000c52647ed4c5%3AT%3D1687225362%3ART%3D1689435636%3AS%3DALNI_MZg3PwIAks9P1RloFpwTb4WNb5XAg&amp;prev_fmts=336x280&amp;correlator=5089215693626&amp;frm=20&amp;pv=1&amp;ga_vid=1799744031.1687225362&amp;ga_sid=1692873714&amp;ga_hid=529673606&amp;ga_fc=1&amp;ga_cid=193762793.1687225362&amp;u_tz=540&amp;u_his=2&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1040&amp;u_aw=1920&amp;u_cd=24&amp;u_sd=1&amp;dmc=8&amp;adx=1040&amp;ady=2626&amp;biw=1903&amp;bih=931&amp;scr_x=0&amp;scr_y=0&amp;eid=44759927%2C44759837%2C44759876%2C44796632%2C44800967%2C31067146&amp;oid=2&amp;pvsid=1009514865449016&amp;tmod=1938028173&amp;uas=0&amp;nvt=1&amp;fc=896&amp;brdim=0%2C0%2C0%2C0%2C1920%2C0%2C1920%2C1040%2C1920%2C931&amp;vis=1&amp;rsz=%7C%7CleEbr%7C&amp;abl=CS&amp;pfx=0&amp;fu=0&amp;bc=31&amp;ifi=2&amp;uci=a!2&amp;btvi=2&amp;fsb=1&amp;xpc=lMsVuWPfk8&amp;p=https%3A//wikidocs.net&amp;dtd=266" data-google-container-id="a!2" data-google-query-id="CJzE6IOO9YADFQ4fvAod75QH5w" data-load-complete="true"></iframe></div></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+</div>
+        </div>
+    
+
+<!-- Mobile -->
+
+
+<!-- google adsense -->
+
+<!--
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.10&appId=189410671132641";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="clearfix">
+    <div class="fb-like" data-href="" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+    <div style="margin-top:2px; margin-right:5px;" class="pull-left">
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+</div>
+
+-->
+
+<div class="clearfix">
+    <a href="javascript:show_comments();" class="label label-info">댓글 4</a>
+    <a href="#myModal" data-toggle="modal" title="피드백을 남겨주세요" class="label label-info">피드백</a>
+</div>
+
+<div class="user_comments" style="display:none">
+
+    <div class="comments" id="page_all_comments">
+        
+
+
+
+
+
+
+
+    <div class="comment comment_border_top">
+        <a name="comment_5873"></a>
+        <span style="white-space:pre-wrap;">위키독스 추천책에 올려 드렸습니다. ^^</span>
+        <span style="font-size:12px;color:#888;">
+            -
+            
+                <a class="menu_link" href="/profile/info/book/3">박응용</a>,
+            
+            2018년 3월 13일 5:09 오후
+            
+            
+            
+        </span>
+    </div>
+
+    <div class="comment comment_border_top">
+        <a name="comment_5874"></a>
+        <span style="white-space:pre-wrap;">감사합니다! 더 열심히 작성하겠습니다 ㅎ</span>
+        <span style="font-size:12px;color:#888;">
+            -
+            
+                <a class="menu_link" href="/profile/info/book/5844">Suwoni</a>,
+            
+            2018년 3월 13일 9:50 오후
+            
+            
+            
+        </span>
+    </div>
+
+    <div class="comment comment_border_top">
+        <a name="comment_7328"></a>
+        <span style="white-space:pre-wrap;">a so good book for python!</span>
+        <span style="font-size:12px;color:#888;">
+            -
+            
+                <a class="menu_link" href="/profile/info/book/3041">Myeongsik</a>,
+            
+            2020년 3월 31일 8:18 오전
+            
+            
+            
+        </span>
+    </div>
+
+    <div class="comment comment_border_top">
+        <a name="comment_12626"></a>
+        <span style="white-space:pre-wrap;">ㅇㄷ
+</span>
+        <span style="font-size:12px;color:#888;">
+            -
+            
+                <a class="menu_link" href="/profile/info/book/14670">팍준성</a>,
+            
+            2021년 12월 14일 2:58 오전
+            
+            
+            
+        </span>
+    </div>
+
+
+
+
+
+
+    </div>
+
+    
+    <a href="/loginForm" class="text-info" style="font-size:12px">※ 댓글 작성은 로그인이 필요합니다.</a>
+    <a href="#myModal" data-toggle="modal" style="font-size:12px">(또는 피드백을 이용해 주세요.)</a>
+    
+</div>
+
+<div class="page-prev-next">
+    
+<div class="clearfix">
+    <div class="pull-left">
+        <ul>
+            
+                <li><strong>이전글</strong> : <a href="/book/1553">파이썬 - 기본을 갈고 닦자!</a></li>
+            
+            
+                <li><strong>다음글</strong> : <a href="javascript:page(16022)">02. REPL 사용</a></li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</div>
+
+
+
+
+<a href="#top" class="label label-default back-to-top">
+    <span class="glyphicon glyphicon-arrow-up"></span>
+    TOP
+</a>
+
+
+<script>
+var is_mobile = "False";
+$(document).ready(function () {
+    if (is_mobile == "True") {
+        if($(window).width() >= 768) {
+            // show toc
+            localStorage.toc = "show";
+            $('#toc_on').prop('checked', true);
+            $(".toc-checker").removeClass("hide");
+            $(".toc-checker").show();
+
+        }else {
+            // hide toc
+            localStorage.toc = "hide";
+            $('#toc_off').prop('checked', true);
+            $(".toc-checker").hide();
+        }
+        $(".mobile-toc").click(function() {
+            $('#toc_on').prop('checked', true);
+            $(".toc-checker").removeClass("hide");
+            $(".toc-checker").show();
+        });
+    }
+});    
+</script>
+
+    </div>
+
+</div>
+
+<div style="display:none" class="prev_next_indicator">
+    
+    <a class="prev_icon" href="/book/1553" role="button">
+        <span class="glyphicon glyphicon-chevron-left" style="font-size:2em;"></span>
+    </a>
+
+
+    <a class="next_icon" href="javascript:page(16022)" role="button">
+        <span class="glyphicon glyphicon-chevron-right" style="font-size:2em;"></span>
+    </a>
+
+
+</div>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel" class="modal-title">이 페이지에 대한 피드백을 남겨주세요</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form" role="form">
+                    <input type="hidden" name="page_id" id="page_id" value="12689">
+                    <div class="form-group">
+                        <label class="control-label" for="email">답장받을 이메일 주소</label>
+                        <div class="">
+                            <input class="form-control" type="text" id="email" placeholder="Email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="feedback">하고 싶은 말</label>
+                        <div class="controls">
+                            <textarea class="form-control" id="feedback" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <p style="font-size:12px;">※ 피드백은 저자에게 e-메일로 전달됩니다.</p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="feedback_btn">전송하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="reportModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="reportModalLabel" class="modal-title">댓글을 신고합니다.</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form" role="form">
+                    <input type="hidden" name="comment_id" id="comment_id">
+                    해당 댓글을 신고하시겠습니까? 댓글 신고는 다음과 같은 경우에 사용해주세요:
+                    <ol>
+                        <li>스팸 또는 광고성 내용이 포함된 경우</li>
+                        <li>욕설, 비방, 개인정보 유출 등 부적절한 내용이 포함된 경우</li>
+                        <li>저작권을 침해하는 내용이 포함된 경우</li>
+                    </ol>
+                    <div class="form-group">
+                        <label class="control-label" for="report">신고 사유를 입력해 주세요.</label>
+                        <div class="controls">
+                            <textarea class="form-control" id="report" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <p style="font-size:12px;">※ 신고하신 내용은 관리자에게 전달되며, 확인 후 적절한 조치가 이루어집니다. 신고는 익명으로 처리되며, 신고자의 정보는 공개되지 않습니다.</p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="report_btn">전송하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+
+<script>
+$(document).ready(function () {
+    $('pre code').each(function(i, e) {
+        hljs.highlightElement(e);
+        $(e).html($(e).html()
+            .replace(/\[\[MARK\]\]/g,'<mark class="add">')
+            .replace(/\[\[\/MARK\]\]/g, '</mark>')
+            .replace(/\[\[SMARK\]\]/g,'<mark class="del"><strike>')
+            .replace(/\[\[\/SMARK\]\]/g, '</strike></mark>')
+            .replace(/\[\[\/.*SMARK.*\]\]/g, '</strike></mark>')
+            .replace(/\[\[.*SMARK.*\]\]/g,'<mark class="del"><strike>')
+            .replace(/\[\[\/.*MARK.*\]\]/g, '</mark>')
+            .replace(/\[\[.*MARK.*\]\]/g,'<mark class="add">')
+        );
+    });
+
+    $("pre code").addClass("md-csc-wrap");
+    $(".hljs").prepend("<button class='md-csc-button btn btn-xs btn-default'><span class='copymsg'>Copy</span></button>");
+
+    $(".md-csc-button").click(function(){
+        let text = $(this).parent().text();
+        text = text.substring(4); // "Copy 문자열 이후부터.."
+        const textArea = document.createElement('textarea');
+        textArea.textContent = text;
+        document.body.append(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        textArea.remove();
+
+        $(this).find(".copymsg").html("Copied!");
+        setTimeout(() => {
+            $(this).find(".copymsg").html("Copy");
+        }, 2000);
+    });
+});
+</script>
+
+
+
+<ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_2_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_2" name="aswift_2" browsingtopics="true" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-5577322954484845&amp;output=html&amp;adk=1812271804&amp;adf=3025194257&amp;lmt=1692873714&amp;plat=1%3A16777216%2C2%3A16777216%2C3%3A16%2C9%3A32776%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C30%3A1081344%2C32%3A32%2C41%3A32%2C42%3A32&amp;plas=366x840_r&amp;format=0x0&amp;url=https%3A%2F%2Fwikidocs.net%2F12689&amp;ea=0&amp;pra=7&amp;wgl=1&amp;easpi=0&amp;asro=0&amp;asrtr=1&amp;asiscm=1&amp;aslmt=0.4&amp;asamt=-1&amp;asedf=0&amp;asefa=1&amp;uach=WyJXaW5kb3dzIiwiMTAuMC4wIiwieDg2IiwiIiwiMTE2LjAuNTg0NS45NyIsW10sMCxudWxsLCI2NCIsW1siQ2hyb21pdW0iLCIxMTYuMC41ODQ1Ljk3Il0sWyJOb3QpQTtCcmFuZCIsIjI0LjAuMC4wIl0sWyJHb29nbGUgQ2hyb21lIiwiMTE2LjAuNTg0NS45NyJdXSwwXQ..&amp;dt=1692873714561&amp;bpp=1&amp;bdt=539&amp;idt=267&amp;shv=r20230822&amp;mjsv=m202308210101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie=ID%3Dee577a1f6a07e139-22756f95bce100f3%3AT%3D1687225362%3ART%3D1689435636%3AS%3DALNI_MYbagNgpQS6zjjSwzLYC8OmCnZjOw&amp;gpic=UID%3D00000c52647ed4c5%3AT%3D1687225362%3ART%3D1689435636%3AS%3DALNI_MZg3PwIAks9P1RloFpwTb4WNb5XAg&amp;prev_fmts=336x280%2C336x280&amp;nras=1&amp;correlator=5089215693626&amp;frm=20&amp;pv=1&amp;ga_vid=1799744031.1687225362&amp;ga_sid=1692873714&amp;ga_hid=529673606&amp;ga_fc=1&amp;ga_cid=193762793.1687225362&amp;u_tz=540&amp;u_his=2&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1040&amp;u_aw=1920&amp;u_cd=24&amp;u_sd=1&amp;dmc=8&amp;adx=-12245933&amp;ady=-12245933&amp;biw=1903&amp;bih=931&amp;scr_x=0&amp;scr_y=0&amp;eid=44759927%2C44759837%2C44759876%2C44796632%2C44800967%2C31067146&amp;oid=2&amp;pvsid=1009514865449016&amp;tmod=1938028173&amp;uas=0&amp;nvt=1&amp;fsapi=1&amp;fc=896&amp;brdim=0%2C0%2C0%2C0%2C1920%2C0%2C1920%2C1040%2C1920%2C931&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=32768&amp;bc=31&amp;ifi=3&amp;uci=a!3&amp;fsb=1&amp;dtd=275" data-google-container-id="a!3" data-load-complete="true"></iframe></div></ins><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" data-side-rail-status="idle" style="display: none !important; z-index: 2147483647 !important; margin: 0px !important; padding: 0px !important; position: fixed !important; right: 191px !important; top: 47px !important; overflow: visible !important; opacity: 0 !important; transition: all 500ms ease-in 0s !important;" data-ad-status="filled"><div id="aswift_3_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 600px; width: 160px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_3" name="aswift_3" browsingtopics="true" style="width:160px !IMPORTANT;height:600px !IMPORTANT" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="160" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="https://googleads.g.doubleclick.net/pagead/html/r20230822/r20110914/zrt_lookup.html?fsb=1#RS-0-&amp;adk=1812271804&amp;client=ca-pub-5577322954484845&amp;fa=4&amp;ifi=4&amp;uci=a!4&amp;btvi=3&amp;xpc=cwQ7QRCNIX&amp;p=https%3A//wikidocs.net" data-google-container-id="a!4" data-google-query-id="CIyP6YOO9YADFRZEwgUd4iILYA" data-load-complete="true"></iframe></div><span class="right-side-rail-edge" style="background: rgb(250, 250, 250) !important; position: absolute !important; left: 0px !important; top: 600px !important; width: 160px !important; height: 5px !important; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px -1px, rgba(0, 0, 0, 0.1) 0px -1px 2px -1px !important;"></span><span class="right-side-rail-dismiss-btn" style="background: rgb(250, 250, 250) !important; position: absolute !important; left: 55px !important; right: 55px !important; top: 605px !important; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px -1px, rgba(0, 0, 0, 0.1) 0px -1px 2px -1px !important;"><svg style="position: absolute !important; top: 0px !important; display: block !important; width: 50px !important; height: 30px !important; margin-top: -5px !important; transform: none !important; pointer-events: initial !important;"><defs><filter id="right-side-rail-drop-shadow" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feComponentTransfer in="SourceAlpha" result="TransferredAlpha"><feFuncR type="discrete" tableValues="0.5"></feFuncR><feFuncG type="discrete" tableValues="0.5"></feFuncG><feFuncB type="discrete" tableValues="0.5"></feFuncB></feComponentTransfer><feGaussianBlur in="TransferredAlpha" stdDeviation="2"></feGaussianBlur><feOffset dx="0" dy="0" result="offsetblur"></feOffset><feMerge><feMergeNode></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs><path d="M5,5 L5,17 A8,8 0 0,0 13,25 L37,25 A8,8 0 0,0 45,17 L45,5 Z" stroke="#FAFAFA" stroke-width="1" fill="#FAFAFA" style="filter: url(&quot;#right-side-rail-drop-shadow&quot;);"></path><rect x="0" y="0" width="50" height="5" style="fill: rgb(250, 250, 250);"></rect><g stroke="#616161" stroke-width="2px" stroke-linecap="square"><line x1="18" y1="18" x2="25" y2="12"></line><line x1="25" y1="12" x2="32" y2="18"></line></g></svg></span></ins><iframe src="https://www.google.com/recaptcha/api2/aframe" width="0" height="0" style="display: none;"></iframe></body>
