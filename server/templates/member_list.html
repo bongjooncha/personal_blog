@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+{% if member_list %}
+    <ul>
+        {% for member in member_list %}
+             <li><p>{{ member.name }} {{ member.age }}</p></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>멤버가 없습니다.</p>
+{% endif %}
